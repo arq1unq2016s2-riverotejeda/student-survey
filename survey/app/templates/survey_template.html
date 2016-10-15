@@ -1,6 +1,8 @@
+<div class="container">
 <div class="panel panel-default">
-    <form (ngSubmit)="onSubmit()" [formGroup]="form">
-        <div *ngFor="let question of model.questions" class="form-row">
+    <div class="form-group" >
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" >
+        <div *ngFor="let question of model.questions" class="form-group">
             <div class="formHeading">{{question.text}}</div>
 
             <div [ngSwitch]="question.controlType">
@@ -16,7 +18,7 @@
         </div>
 
         <div class="form-row">
-            <button type="submit" [disabled]="!form.valid">Save</button>
+            <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Save</button>
         </div>
     </form>
 
@@ -26,4 +28,6 @@
             {{payLoad}}
         </div>
     </div>
+</div>
+</div>
 </div>

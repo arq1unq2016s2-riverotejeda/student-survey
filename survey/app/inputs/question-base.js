@@ -5,4 +5,4 @@ var QuestionBase = (function () {
     return QuestionBase;
 }());
 exports.QuestionBase = QuestionBase;
-//# sourceMappingURL=./app/inputs/question-base.js.map
+//# sourceMappingURL=question-base.js.map

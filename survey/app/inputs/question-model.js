@@ -19,4 +19,4 @@ var QuestionModel = (function () {
     return QuestionModel;
 }());
 exports.QuestionModel = QuestionModel;
-//# sourceMappingURL=./app/inputs/question-model.js.map
+//# sourceMappingURL=question-model.js.map
