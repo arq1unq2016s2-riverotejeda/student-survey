@@ -9,24 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var home_component_1 = require('./home.component');
-var survey_1 = require('./inputs/survey');
-var forms_1 = require('@angular/forms');
-var forms_2 = require('@angular/forms');
-var http_1 = require('@angular/http');
-var HomeModule = (function () {
-    function HomeModule() {
+var Survey = (function () {
+    function Survey() {
+        this.payLoad = null;
     }
-    HomeModule = __decorate([
-        core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_2.ReactiveFormsModule, forms_1.FormsModule, http_1.HttpModule],
-            declarations: [home_component_1.HomeComponent, survey_1.Survey],
-            bootstrap: [home_component_1.HomeComponent]
+    Survey.prototype.ngOnInit = function () {
+        this.form = this.model.toGroup();
+    };
+    Survey.prototype.onSubmit = function () {
+        this.payLoad = JSON.stringify(this.form.value);
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], Survey.prototype, "model", void 0);
+    Survey = __decorate([
+        core_1.Component({
+            selector: 'survey',
+            templateUrl: './app/templates/survey_template.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], HomeModule);
-    return HomeModule;
+    ], Survey);
+    return Survey;
 }());
-exports.HomeModule = HomeModule;
-//# sourceMappingURL=home.module.js.map
+exports.Survey = Survey;
+//# sourceMappingURL=survey.js.map

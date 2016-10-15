@@ -9,21 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var question_model_1 = require('./inputs/question-model');
-var textbox_question_1 = require('./inputs/textbox-question');
-var dropdown_question_1 = require('./inputs/dropdown-question');
-var HomeComponent = (function () {
-    function HomeComponent() {
+var question_model_1 = require('./question-model');
+var textbox_question_1 = require('./textbox-question');
+var dropdown_question_1 = require('./dropdown-question');
+var SurveyDemo = (function () {
+    function SurveyDemo() {
         this.questionModel = new question_model_1.QuestionModel();
         var question = new textbox_question_1.TextboxQuestion();
         question.key = 'lastName';
-        question.text = 'Apellido';
+        question.text = 'Last name';
         question.required = true;
         question.order = 2;
         this.questionModel.questions.push(question);
         question = new textbox_question_1.TextboxQuestion();
         question.key = 'firstName';
-        question.text = 'Nombre';
+        question.text = 'First name';
         question.required = true;
         question.order = 1;
         this.questionModel.questions.push(question);
@@ -45,15 +45,14 @@ var HomeComponent = (function () {
         this.questionModel.questions.push(ddQuestion);
         this.questionModel.questions.sort(function (a, b) { return a.order - b.order; });
     }
-    HomeComponent = __decorate([
+    SurveyDemo = __decorate([
         core_1.Component({
-            selector: 'my-home',
-            templateUrl: './app/templates/home_template.html',
-            styleUrls: ['../styles.css']
+            selector: 'survey-demo',
+            template: '<div><h1>Survey using Dynamic Form</h1><survey [model]="questionModel"></survey></div>'
         }), 
         __metadata('design:paramtypes', [])
-    ], HomeComponent);
-    return HomeComponent;
+    ], SurveyDemo);
+    return SurveyDemo;
 }());
-exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=home.component.js.map
+exports.SurveyDemo = SurveyDemo;
+//# sourceMappingURL=survey-demo.js.map
