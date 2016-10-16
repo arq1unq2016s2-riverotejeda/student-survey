@@ -26,7 +26,8 @@ var Survey = (function () {
     Survey = __decorate([
         core_1.Component({
             selector: 'survey',
-            templateUrl: './app/templates/survey_template.html'
+            templateUrl: './app/templates/survey_template.html',
+            styleUrls: ['../styles.css']
         }), 
         __metadata('design:paramtypes', [])
     ], Survey);

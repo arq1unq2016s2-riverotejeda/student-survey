@@ -19,26 +19,26 @@ var HomeComponent = (function () {
         question.key = 'lastName';
         question.text = 'Apellido';
         question.required = true;
-        question.order = 2;
+        question.order = 1;
         this.questionModel.questions.push(question);
         question = new textbox_question_1.TextboxQuestion();
         question.key = 'firstName';
         question.text = 'Nombre';
         question.required = true;
-        question.order = 1;
+        question.order = 2;
         this.questionModel.questions.push(question);
         question = new textbox_question_1.TextboxQuestion();
         question.key = 'legajo';
         question.text = 'Legajo';
         question.required = true;
-        question.order = 4;
+        question.order = 3;
         this.questionModel.questions.push(question);
         question = new textbox_question_1.TextboxQuestion();
         question.key = 'emailAddress';
         question.text = 'Email';
         question.required = false;
         question.type = 'email';
-        question.order = 3;
+        question.order = 4;
         this.questionModel.questions.push(question);
         var materias = [
             {
@@ -133,7 +133,9 @@ var HomeComponent = (function () {
                 ]
             }
         ];
+        var o = 4;
         for (var m in materias) {
+            o++;
             var ddQuestion = new dropdown_question_1.DropDownQuestion();
             ddQuestion.key = materias[m].subject_name;
             ddQuestion.text = materias[m].subject_name;
@@ -143,6 +145,7 @@ var HomeComponent = (function () {
             for (var i = 0; i < materias[m].options.length; i++) {
                 ddQuestion.options.push({ key: materias[m].options[i], value: materias[m].options[i] });
             }
+            ddQuestion.order = o;
             this.questionModel.questions.push(ddQuestion);
         }
         this.questionModel.questions.sort(function (a, b) { return a.order - b.order; });
