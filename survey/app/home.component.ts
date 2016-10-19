@@ -11,7 +11,7 @@ import {FormGroup, ReactiveFormsModule, FormsModule} from '@angular/forms';
 @Component({
   selector: 'my-home',
   templateUrl : './app/templates/home_template.html',
-  styleUrls: ['../styles.css']
+  //styleUrls: ['../bootstrap.css']
 
 })
 export class HomeComponent {

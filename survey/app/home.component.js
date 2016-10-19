@@ -154,7 +154,6 @@ var HomeComponent = (function () {
         core_1.Component({
             selector: 'my-home',
             templateUrl: './app/templates/home_template.html',
-            styleUrls: ['../styles.css']
         }), 
         __metadata('design:paramtypes', [])
     ], HomeComponent);
