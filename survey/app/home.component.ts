@@ -4,6 +4,13 @@ import {QuestionModel} from './inputs/question-model';
 import {TextboxQuestion} from './inputs/textbox-question';
 import {DropDownQuestion} from './inputs/dropdown-question';
 import {FormGroup, ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { Observable }     from 'rxjs/Observable';
+import { Configuration } from './home.constants';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import {SubjectService} from './services/subject-service'
+import {RequestOptions, Headers, Response, Http} from "@angular/http";
 
 
 
@@ -16,8 +23,11 @@ import {FormGroup, ReactiveFormsModule, FormsModule} from '@angular/forms';
 })
 export class HomeComponent {
     questionModel = new QuestionModel();
-    constructor(){
+    public dataStore: {};
 
+    public subjectService;
+    constructor(private http:Http){
+        this.subjectService = new SubjectService(http);
 
         let question = new TextboxQuestion();
         question.key = 'lastName';
@@ -143,27 +153,45 @@ export class HomeComponent {
             }
             ];
 
+
         var o = 4;
-        for(var m in materias) {
+        for (var m in materias) {
             o++;
             let ddQuestion = new DropDownQuestion();
             ddQuestion.key = materias[m].subject_name;
             ddQuestion.text = materias[m].subject_name;
 
-            for ( var i = 0; i < materias[m].date.length; i++){
-                ddQuestion.options.push({key:materias[m].date[i],value:materias[m].date[i]});
+            for (var i = 0; i < materias[m].date.length; i++) {
+                ddQuestion.options.push({key: materias[m].date[i], value: materias[m].date[i]});
             }
 
-            for ( var i = 0; i < materias[m].options.length; i++){
-                ddQuestion.options.push({key:materias[m].options[i],value:materias[m].options[i]});
+            for (var i = 0; i < materias[m].options.length; i++) {
+                ddQuestion.options.push({key: materias[m].options[i], value: materias[m].options[i]});
             }
             ddQuestion.order = o;
             this.questionModel.questions.push(ddQuestion);
         }
 
 
+        this.questionModel.questions.sort((a, b) => a.order - b.order);
 
-        this.questionModel.questions.sort((a,b) => a.order - b.order);
+
+
+            var p = this.subjectService.getSubjects();
+
+            console.log(p);
+
+
+
+
+
+
+
     }
+
+
+
+
+
 }
 

@@ -12,9 +12,16 @@ var core_1 = require('@angular/core');
 var question_model_1 = require('./inputs/question-model');
 var textbox_question_1 = require('./inputs/textbox-question');
 var dropdown_question_1 = require('./inputs/dropdown-question');
+require('rxjs/add/operator/map');
+require('rxjs/add/operator/catch');
+require('rxjs/add/observable/throw');
+var subject_service_1 = require('./services/subject-service');
+var http_1 = require("@angular/http");
 var HomeComponent = (function () {
-    function HomeComponent() {
+    function HomeComponent(http) {
+        this.http = http;
         this.questionModel = new question_model_1.QuestionModel();
+        this.subjectService = new subject_service_1.SubjectService(http);
         var question = new textbox_question_1.TextboxQuestion();
         question.key = 'lastName';
         question.text = 'Apellido';
@@ -149,13 +156,15 @@ var HomeComponent = (function () {
             this.questionModel.questions.push(ddQuestion);
         }
         this.questionModel.questions.sort(function (a, b) { return a.order - b.order; });
+        var p = this.subjectService.getSubjects();
+        console.log(p);
     }
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'my-home',
             templateUrl: './app/templates/home_template.html',
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], HomeComponent);
     return HomeComponent;
 }());
