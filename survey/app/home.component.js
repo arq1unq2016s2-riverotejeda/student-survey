@@ -156,8 +156,8 @@ var HomeComponent = (function () {
             this.questionModel.questions.push(ddQuestion);
         }
         this.questionModel.questions.sort(function (a, b) { return a.order - b.order; });
-        var p = this.subjectService.getSubjects();
-        console.log(p);
+        this.subjectData = this.subjectService.getSubjects();
+        console.log(this.subjectData);
     }
     HomeComponent = __decorate([
         core_1.Component({

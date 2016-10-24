@@ -23,7 +23,7 @@ import {RequestOptions, Headers, Response, Http} from "@angular/http";
 })
 export class HomeComponent {
     questionModel = new QuestionModel();
-    public dataStore: {};
+    public subjectData: {};
 
     public subjectService;
     constructor(private http:Http){
@@ -177,9 +177,9 @@ export class HomeComponent {
 
 
 
-            var p = this.subjectService.getSubjects();
+            this.subjectData = this.subjectService.getSubjects();
 
-            console.log(p);
+            console.log(this.subjectData);
 
 
 

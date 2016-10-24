@@ -24,6 +24,7 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "ng2-bootstrap": "^1.1.14",
+    "ng2-dropdown": "0.0.15",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.0-beta.12",
     "systemjs": "0.19.39",
@@ -34,5 +35,13 @@
     "lite-server": "^2.2.2",
     "typescript": "^2.0.3",
     "typings": "^1.4.0"
+  },
+
+  "map": {
+    "ng2-dropdown": "node_modules/ng2-dropdown"
+  },
+  "packages": {
+    "ng2-dropdown": { "main": "index.js", "defaultExtension": "js" }
   }
+
 }
