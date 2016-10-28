@@ -7,6 +7,12 @@ import { ReactiveFormsModule }          from '@angular/forms';
 import { HttpModule }                   from '@angular/http';
 
 
+
+
+
+
+
+
 @NgModule({
   imports:      [ BrowserModule , ReactiveFormsModule,  FormsModule, HttpModule ],
   declarations: [ HomeComponent, Survey ],

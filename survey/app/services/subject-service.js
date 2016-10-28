@@ -12,17 +12,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
 var home_constants_1 = require('../home.constants');
+var http_1 = require('@angular/http');
 var SubjectService = (function () {
     function SubjectService(http) {
         this.http = http;
+        this.getSubjects();
+        console.log(this.subjectData);
     }
     SubjectService.prototype.getSubjects = function () {
+        /*this.http.get(`${Configuration.API_ENDPOINT}/subjects`)
+            .subscribe(result =>
+             //   console.log(result.json()));
+
+
+                this.subjectData = result.json());*/
+        //return this.subjectData;
         var _this = this;
-        this.http.get(home_constants_1.Configuration.API_ENDPOINT + "/subjects")
-            .subscribe(function (result) { return _this.subjectData = result.json(); });
-        return this.subjectData;
+        return this.http.get(home_constants_1.Configuration.API_ENDPOINT + "/subjects")
+            .map(function (res) { return res.json(); })
+            .subscribe(function (res) { _this.subjectData = res; });
+        //return this.subjectData;
+        /*return this.http.get(`${Configuration.API_ENDPOINT}/subjects`)
+        // ...and calling .json() on the response to return data
+            .map((res:Response) => res.json())
+            //...errors if any
+            .catch((error:any) => Observable.throw(error.json().error || 'Server error'));*/
     };
     SubjectService = __decorate([
         core_1.Injectable(), 
