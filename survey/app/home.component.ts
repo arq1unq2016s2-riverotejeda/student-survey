@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {FormGroup, ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { Observable }     from 'rxjs/Observable';
@@ -9,6 +9,7 @@ import 'rxjs/add/observable/throw';
 import {SubjectService} from './services/subject.service'
 import {RequestOptions, Headers, Response, Http} from "@angular/http";
 import {SurveyService} from "./services/survey.service";
+import {Subject} from "./subject";
 
 
 
@@ -20,20 +21,18 @@ import {SurveyService} from "./services/survey.service";
 
 
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
-    public subjectData: {};
-    public mySubjects :string;
-
-
-
-    public subjectService;
-    constructor(private http:Http, private _dataService: SubjectService){
-
+    ngOnInit(): void {
+        this.getSubjects();
     }
 
+    public mySubjects :Subject[];
+
+    constructor(private subjectService: SubjectService){}
+
     getSubjects() {
-        this._dataService.GetAll()
+        this.subjectService.getSubjects()
             .subscribe(
                 res => this.mySubjects= res, // put the data returned from the server in our variable
                 error => console.log("Error HTTP GET Service"), // in case of failure show this message
@@ -41,9 +40,5 @@ export class HomeComponent {
             );
 
     }
-
-
-
-
 }
 

@@ -13,16 +13,17 @@ require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 require('rxjs/add/observable/throw');
 var subject_service_1 = require('./services/subject.service');
-var http_1 = require("@angular/http");
 var survey_service_1 = require("./services/survey.service");
 var HomeComponent = (function () {
-    function HomeComponent(http, _dataService) {
-        this.http = http;
-        this._dataService = _dataService;
+    function HomeComponent(subjectService) {
+        this.subjectService = subjectService;
     }
+    HomeComponent.prototype.ngOnInit = function () {
+        this.getSubjects();
+    };
     HomeComponent.prototype.getSubjects = function () {
         var _this = this;
-        this._dataService.GetAll()
+        this.subjectService.getSubjects()
             .subscribe(function (res) { return _this.mySubjects = res; }, // put the data returned from the server in our variable
         function (// put the data returned from the server in our variable
             error) { return console.log("Error HTTP GET Service"); }, // in case of failure show this message
@@ -37,7 +38,7 @@ var HomeComponent = (function () {
             //styleUrls: ['../bootstrap.css']
             providers: [subject_service_1.SubjectService, survey_service_1.SurveyService]
         }), 
-        __metadata('design:paramtypes', [http_1.Http, subject_service_1.SubjectService])
+        __metadata('design:paramtypes', [subject_service_1.SubjectService])
     ], HomeComponent);
     return HomeComponent;
 }());

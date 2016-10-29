@@ -18,12 +18,16 @@ var Observable_1 = require('rxjs/Observable');
 require('rxjs/add/operator/map');
 var SubjectService = (function () {
     function SubjectService(_http) {
-        var _this = this;
         this._http = _http;
-        this.GetAll = function () {
-            return _this._http.get(home_constants_1.Configuration.API_ENDPOINT + "/subjects").map(function (response) { return response.json(); });
-        };
     }
+    SubjectService.prototype.getSubjects = function () {
+        return this._http.get(home_constants_1.Configuration.API_ENDPOINT + "/subjects").
+            map(this.extractData).catch(this.handleError);
+    };
+    SubjectService.prototype.extractData = function (res) {
+        var body = res.json();
+        return body;
+    };
     SubjectService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');

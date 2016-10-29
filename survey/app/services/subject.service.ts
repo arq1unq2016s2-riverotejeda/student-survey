@@ -7,25 +7,26 @@ import {Configuration} from '../home.constants'
 import {Component} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {Subject } from 'rxjs/Subject';
 
 
 import 'rxjs/add/operator/map'
+import {Subject} from "../subject";
 
 
 
 @Injectable()
 export class SubjectService {
 
-    public subjectData;
+    constructor(private _http:Http) {}
 
-    constructor(private _http:Http) {
-
-
+    public getSubjects (): Observable<Subject[]> {
+        return this._http.get(`${Configuration.API_ENDPOINT}/subjects`).
+        map(this.extractData).catch(this.handleError);
     }
 
-    public GetAll = (): Observable<any> => {
-        return this._http.get(`${Configuration.API_ENDPOINT}/subjects`).map((response: Response) => <any>response.json());
+    private extractData(res: Response) {
+        let body = res.json();
+        return body;
     }
 
 
