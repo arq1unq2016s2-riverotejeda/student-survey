@@ -23,10 +23,11 @@ var HomeComponent = (function () {
     HomeComponent.prototype.getSubjects = function () {
         var _this = this;
         this._dataService.GetAll()
-            .subscribe(function (data) { return _this.mySubjects = JSON.stringify(data); }, // put the data returned from the server in our variable
+            .subscribe(function (res) { return _this.mySubjects = res; }, // put the data returned from the server in our variable
         function (// put the data returned from the server in our variable
             error) { return console.log("Error HTTP GET Service"); }, // in case of failure show this message
-        function () { return console.log("Job Done Get !"); } //run this code in all cases
+        function () { console.log("Job Done Get !"), console.log(_this.mySubjects); } //run this code in all cases
+         //run this code in all cases
         );
     };
     HomeComponent = __decorate([

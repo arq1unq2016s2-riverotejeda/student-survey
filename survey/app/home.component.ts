@@ -25,6 +25,8 @@ export class HomeComponent {
     public subjectData: {};
     public mySubjects :string;
 
+
+
     public subjectService;
     constructor(private http:Http, private _dataService: SubjectService){
 
@@ -33,9 +35,9 @@ export class HomeComponent {
     getSubjects() {
         this._dataService.GetAll()
             .subscribe(
-                data => this.mySubjects= JSON.stringify(data), // put the data returned from the server in our variable
+                res => this.mySubjects= res, // put the data returned from the server in our variable
                 error => console.log("Error HTTP GET Service"), // in case of failure show this message
-                () => console.log("Job Done Get !")//run this code in all cases
+                () => {console.log("Job Done Get !"), console.log(this.mySubjects)}//run this code in all cases
             );
 
     }
