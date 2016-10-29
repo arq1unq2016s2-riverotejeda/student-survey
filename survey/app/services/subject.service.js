@@ -14,30 +14,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var home_constants_1 = require('../home.constants');
 var http_1 = require('@angular/http');
+var Observable_1 = require('rxjs/Observable');
+require('rxjs/add/operator/map');
 var SubjectService = (function () {
-    function SubjectService(http) {
-        this.http = http;
-        this.getSubjects();
-        console.log(this.subjectData);
-    }
-    SubjectService.prototype.getSubjects = function () {
-        /*this.http.get(`${Configuration.API_ENDPOINT}/subjects`)
-            .subscribe(result =>
-             //   console.log(result.json()));
-
-
-                this.subjectData = result.json());*/
-        //return this.subjectData;
+    function SubjectService(_http) {
         var _this = this;
-        return this.http.get(home_constants_1.Configuration.API_ENDPOINT + "/subjects")
-            .map(function (res) { return res.json(); })
-            .subscribe(function (res) { _this.subjectData = res; });
-        //return this.subjectData;
-        /*return this.http.get(`${Configuration.API_ENDPOINT}/subjects`)
-        // ...and calling .json() on the response to return data
-            .map((res:Response) => res.json())
-            //...errors if any
-            .catch((error:any) => Observable.throw(error.json().error || 'Server error'));*/
+        this._http = _http;
+        this.GetAll = function () {
+            return _this._http.get(home_constants_1.Configuration.API_ENDPOINT + "/subjects").map(function (response) { return response.json(); });
+        };
+    }
+    SubjectService.prototype.handleError = function (error) {
+        console.error(error);
+        return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
     SubjectService = __decorate([
         core_1.Injectable(), 
@@ -46,4 +35,4 @@ var SubjectService = (function () {
     return SubjectService;
 }());
 exports.SubjectService = SubjectService;
-//# sourceMappingURL=subject-service.js.map
+//# sourceMappingURL=subject.service.js.map

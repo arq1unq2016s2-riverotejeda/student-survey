@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var home_component_1 = require('./home.component');
-var survey_1 = require('./inputs/survey');
 var forms_1 = require('@angular/forms');
 var forms_2 = require('@angular/forms');
 var http_1 = require('@angular/http');
@@ -21,7 +20,7 @@ var HomeModule = (function () {
     HomeModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_2.ReactiveFormsModule, forms_1.FormsModule, http_1.HttpModule],
-            declarations: [home_component_1.HomeComponent, survey_1.Survey],
+            declarations: [home_component_1.HomeComponent],
             bootstrap: [home_component_1.HomeComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -14,7 +14,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var Configuration = (function () {
     function Configuration() {
-        this.Server = "http://localhost:9090/";
+        this.Server = "http://localhost:9090";
         this.ApiUrl = "/";
         this.ServerWithApiUrl = this.Server + this.ApiUrl;
     }
