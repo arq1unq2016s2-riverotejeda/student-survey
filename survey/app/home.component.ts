@@ -9,7 +9,7 @@ import 'rxjs/add/observable/throw';
 import {SubjectService} from './services/subject.service'
 import {RequestOptions, Headers, Response, Http} from "@angular/http";
 import {SurveyService} from "./services/survey.service";
-import {Subject} from "./subject";
+import {Subject, SubjectStatusTranslator} from "./subject";
 import {Survey, SelectedSubject} from "./survey";
 
 
@@ -36,7 +36,15 @@ export class HomeComponent implements OnInit{
     getSubjects() {
         this.subjectService.getSubjects()
             .subscribe(
-                res => this.mySubjects= res, // put the data returned from the server in our variable
+                res => {
+                    res.map(survey => {
+                        for (let option of survey.options){
+                            var option_translated = SubjectStatusTranslator.subject_status[option];
+                            survey.general_options.push(option_translated);
+                        }
+                    })
+                    this.mySubjects = res;
+                }, // put the data returned from the server in our variable
                 error => console.log("Error HTTP GET Service"), // in case of failure show this message
                 () => {console.log("Job Done Get !")}//run this code in all cases
             );

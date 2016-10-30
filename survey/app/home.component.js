@@ -14,6 +14,7 @@ require('rxjs/add/operator/catch');
 require('rxjs/add/observable/throw');
 var subject_service_1 = require('./services/subject.service');
 var survey_service_1 = require("./services/survey.service");
+var subject_1 = require("./subject");
 var survey_1 = require("./survey");
 var HomeComponent = (function () {
     function HomeComponent(subjectService) {
@@ -27,7 +28,16 @@ var HomeComponent = (function () {
     HomeComponent.prototype.getSubjects = function () {
         var _this = this;
         this.subjectService.getSubjects()
-            .subscribe(function (res) { return _this.mySubjects = res; }, // put the data returned from the server in our variable
+            .subscribe(function (res) {
+            res.map(function (survey) {
+                for (var _i = 0, _a = survey.options; _i < _a.length; _i++) {
+                    var option = _a[_i];
+                    var option_translated = subject_1.SubjectStatusTranslator.subject_status[option];
+                    survey.general_options.push(option_translated);
+                }
+            });
+            _this.mySubjects = res;
+        }, // put the data returned from the server in our variable
         function (// put the data returned from the server in our variable
             error) { return console.log("Error HTTP GET Service"); }, // in case of failure show this message
         function () { console.log("Job Done Get !"); } //run this code in all cases
