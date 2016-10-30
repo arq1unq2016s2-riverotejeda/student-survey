@@ -14,9 +14,12 @@ require('rxjs/add/operator/catch');
 require('rxjs/add/observable/throw');
 var subject_service_1 = require('./services/subject.service');
 var survey_service_1 = require("./services/survey.service");
+var survey_1 = require("./survey");
 var HomeComponent = (function () {
     function HomeComponent(subjectService) {
         this.subjectService = subjectService;
+        this.model = new survey_1.Survey("", "", "", []);
+        this.active = true;
     }
     HomeComponent.prototype.ngOnInit = function () {
         this.getSubjects();
@@ -27,15 +30,21 @@ var HomeComponent = (function () {
             .subscribe(function (res) { return _this.mySubjects = res; }, // put the data returned from the server in our variable
         function (// put the data returned from the server in our variable
             error) { return console.log("Error HTTP GET Service"); }, // in case of failure show this message
-        function () { console.log("Job Done Get !"), console.log(_this.mySubjects); } //run this code in all cases
-         //run this code in all cases
+        function () { console.log("Job Done Get !"); } //run this code in all cases
         );
     };
+    HomeComponent.prototype.addSubject = function (subjectName, event) {
+        var option = event.srcElement.value;
+        var selectedSubject = new survey_1.SelectedSubject(subjectName, option);
+        //TODO: check if already exist
+        this.model.selected_subjects.push(selectedSubject);
+        console.log(this.model);
+    };
+    HomeComponent.prototype.onSubmit = function () { console.log(this.model); };
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'my-home',
             templateUrl: './app/templates/home_template.html',
-            //styleUrls: ['../bootstrap.css']
             providers: [subject_service_1.SubjectService, survey_service_1.SurveyService]
         }), 
         __metadata('design:paramtypes', [subject_service_1.SubjectService])

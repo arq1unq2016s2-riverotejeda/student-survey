@@ -10,24 +10,26 @@ import {SubjectService} from './services/subject.service'
 import {RequestOptions, Headers, Response, Http} from "@angular/http";
 import {SurveyService} from "./services/survey.service";
 import {Subject} from "./subject";
+import {Survey, SelectedSubject} from "./survey";
 
 
 
 @Component({
   selector: 'my-home',
   templateUrl : './app/templates/home_template.html',
-  //styleUrls: ['../bootstrap.css']
-    providers: [SubjectService, SurveyService]
-
-
+  providers: [SubjectService, SurveyService]
 })
+
 export class HomeComponent implements OnInit{
+    public mySubjects: Subject[];
 
     ngOnInit(): void {
         this.getSubjects();
     }
 
-    public mySubjects :Subject[];
+    public model = new Survey("", "", "", []);
+
+    active = true;
 
     constructor(private subjectService: SubjectService){}
 
@@ -36,9 +38,19 @@ export class HomeComponent implements OnInit{
             .subscribe(
                 res => this.mySubjects= res, // put the data returned from the server in our variable
                 error => console.log("Error HTTP GET Service"), // in case of failure show this message
-                () => {console.log("Job Done Get !"), console.log(this.mySubjects)}//run this code in all cases
+                () => {console.log("Job Done Get !")}//run this code in all cases
             );
 
     }
+
+    addSubject(subjectName:string, event){
+        var option = (<HTMLSelectElement>event.srcElement).value;
+        var selectedSubject = new SelectedSubject(subjectName, option);
+        //TODO: check if already exist
+        this.model.selected_subjects.push(selectedSubject);
+        console.log(this.model);
+    }
+
+    onSubmit() { console.log(this.model) }
 }
 
