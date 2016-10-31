@@ -7,31 +7,32 @@
  */
 
 import {Injectable} from '@angular/core';
-import {Configuration} from '../home.constants'
-import {Component} from '@angular/core';
-import {Http, Response, Headers} from '@angular/http';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {Subject } from 'rxjs/Subject';
-
-
 import 'rxjs/add/operator/map'
-
+import {Survey} from "../survey";
+import {Configuration} from "../home.constants";
 
 
 @Injectable()
 export class SurveyService {
 
-    public subjectData;
+    constructor(private _http:Http) {}
 
-    constructor(private _http:Http) {
+    public saveSurvey (survey: Survey): Observable<Survey> {
 
+        let headers    = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
 
+        return this._http
+            .post('http://localhost:9090/survey', survey, { headers: headers })
+            .map(this.extractData).catch(this.handleError);
     }
 
-    public GetAll = (): Observable<any> => {
-        return this._http.get(`${Configuration.API_ENDPOINT}/survey`).map((response: Response) => <any>response.json());
+    private extractData(res: Response) {
+        console.log(res);
+        let body = res.json();
+        return body;
     }
-
 
     private handleError(error: Response) {
         console.error(error);

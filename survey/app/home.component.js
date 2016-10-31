@@ -17,9 +17,10 @@ var survey_service_1 = require("./services/survey.service");
 var subject_1 = require("./subject");
 var survey_1 = require("./survey");
 var HomeComponent = (function () {
-    function HomeComponent(subjectService) {
+    function HomeComponent(subjectService, surveyService) {
         this.subjectService = subjectService;
-        this.model = new survey_1.Survey("", "", "", []);
+        this.surveyService = surveyService;
+        this.model = new survey_1.Survey("", "", []);
         this.active = true;
     }
     HomeComponent.prototype.ngOnInit = function () {
@@ -38,7 +39,6 @@ var HomeComponent = (function () {
             });
             _this.mySubjects = res;
         }, function (error) { return console.log("Error HTTP GET Service"); } // in case of failure show this message
-         // in case of failure show this message
         );
     };
     HomeComponent.prototype.addSubject = function (subjectName, event) {
@@ -54,7 +54,7 @@ var HomeComponent = (function () {
                 selected.status = status;
             }
         });
-        console.log(this.model);
+        this.surveyService.saveSurvey(this.model).subscribe(function (response) { return console.log(response); }, function () { return console.log('Survey successfully saved'); });
     };
     HomeComponent = __decorate([
         core_1.Component({
@@ -62,7 +62,7 @@ var HomeComponent = (function () {
             templateUrl: './app/templates/home_template.html',
             providers: [subject_service_1.SubjectService, survey_service_1.SurveyService]
         }), 
-        __metadata('design:paramtypes', [subject_service_1.SubjectService])
+        __metadata('design:paramtypes', [subject_service_1.SubjectService, survey_service_1.SurveyService])
     ], HomeComponent);
     return HomeComponent;
 }());

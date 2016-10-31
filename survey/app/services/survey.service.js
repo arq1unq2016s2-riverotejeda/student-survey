@@ -15,18 +15,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by mar on 22/10/16.
  */
 var core_1 = require('@angular/core');
-var home_constants_1 = require('../home.constants');
 var http_1 = require('@angular/http');
 var Observable_1 = require('rxjs/Observable');
 require('rxjs/add/operator/map');
 var SurveyService = (function () {
     function SurveyService(_http) {
-        var _this = this;
         this._http = _http;
-        this.GetAll = function () {
-            return _this._http.get(home_constants_1.Configuration.API_ENDPOINT + "/survey").map(function (response) { return response.json(); });
-        };
     }
+    SurveyService.prototype.saveSurvey = function (survey) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        return this._http
+            .post('http://localhost:9090/survey', survey, { headers: headers })
+            .map(this.extractData).catch(this.handleError);
+    };
+    SurveyService.prototype.extractData = function (res) {
+        console.log(res);
+        var body = res.json();
+        return body;
+    };
     SurveyService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');

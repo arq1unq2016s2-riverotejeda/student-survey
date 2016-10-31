@@ -27,11 +27,11 @@ export class HomeComponent implements OnInit{
         this.getSubjects();
     }
 
-    public model = new Survey("", "", "", []);
+    public model = new Survey("", "", []);
 
     active = true;
 
-    constructor(private subjectService: SubjectService){}
+    constructor(private subjectService: SubjectService, private surveyService: SurveyService){}
 
     getSubjects() {
         this.subjectService.getSubjects()
@@ -42,12 +42,11 @@ export class HomeComponent implements OnInit{
                             var option_translated = SubjectStatusTranslator.subjectStatusMessage[option];
                             survey.general_options.push(option_translated);
                         }
-                    })
+                    });
                     this.mySubjects = res;
                 },
                 error => console.log("Error HTTP GET Service") // in case of failure show this message
             );
-
     }
 
     addSubject(subjectName:string, event){
@@ -63,11 +62,12 @@ export class HomeComponent implements OnInit{
             if(status){
                 selected.status = status;
             }
-
         });
 
-        console.log(this.model);
-
+        this.surveyService.saveSurvey(this.model).subscribe(
+            response => console.log(response),
+            () => console.log('Survey successfully saved')
+        );
     }
 }
 

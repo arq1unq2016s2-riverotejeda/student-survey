@@ -29,7 +29,6 @@ export class SubjectService {
         return body;
     }
 
-
     private handleError(error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');

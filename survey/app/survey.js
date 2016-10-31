@@ -1,7 +1,6 @@
 "use strict";
 var Survey = (function () {
-    function Survey(id, student_name, legajo, selected_subjects) {
-        this.id = id;
+    function Survey(student_name, legajo, selected_subjects) {
         this.student_name = student_name;
         this.legajo = legajo;
         this.selected_subjects = selected_subjects;
