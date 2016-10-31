@@ -32,15 +32,13 @@ var HomeComponent = (function () {
             res.map(function (survey) {
                 for (var _i = 0, _a = survey.options; _i < _a.length; _i++) {
                     var option = _a[_i];
-                    var option_translated = subject_1.SubjectStatusTranslator.subject_status[option];
+                    var option_translated = subject_1.SubjectStatusTranslator.subjectStatusMessage[option];
                     survey.general_options.push(option_translated);
                 }
             });
             _this.mySubjects = res;
-        }, // put the data returned from the server in our variable
-        function (// put the data returned from the server in our variable
-            error) { return console.log("Error HTTP GET Service"); }, // in case of failure show this message
-        function () { console.log("Job Done Get !"); } //run this code in all cases
+        }, function (error) { return console.log("Error HTTP GET Service"); } // in case of failure show this message
+         // in case of failure show this message
         );
     };
     HomeComponent.prototype.addSubject = function (subjectName, event) {
@@ -48,9 +46,16 @@ var HomeComponent = (function () {
         var selectedSubject = new survey_1.SelectedSubject(subjectName, option);
         //TODO: check if already exist
         this.model.selected_subjects.push(selectedSubject);
+    };
+    HomeComponent.prototype.onSubmit = function () {
+        this.model.selected_subjects.map(function (selected) {
+            var status = subject_1.SubjectStatusTranslator.getSubjectStatusCodeByMessage(selected.status);
+            if (status) {
+                selected.status = status;
+            }
+        });
         console.log(this.model);
     };
-    HomeComponent.prototype.onSubmit = function () { console.log(this.model); };
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'my-home',

@@ -8,13 +8,24 @@ exports.Subject = Subject;
 var SubjectStatusTranslator = (function () {
     function SubjectStatusTranslator() {
     }
-    //private NOT_YET = "Aún no la voy a cursar";
-    //private APPROVED = "Ya la aprobé";
-    //private BAD_SCHEDULE: "No puedo cursar en ese horario",
-    SubjectStatusTranslator.subject_status = {
-        not_yet: "Aún no la voy a cursar",
-        approved: "Ya la aprobé",
-        bad_schedule: "No puedo cursar en ese horario",
+    SubjectStatusTranslator.getSubjectStatusCodeByMessage = function (message) {
+        if (message == SubjectStatusTranslator.APPROVED) {
+            return "approved";
+        }
+        if (message == SubjectStatusTranslator.BAD_SCHEDULE) {
+            return "bad_schedule";
+        }
+        if (message == SubjectStatusTranslator.NOT_YET) {
+            return "not_yet";
+        }
+    };
+    SubjectStatusTranslator.NOT_YET = "Aún no la voy a cursar";
+    SubjectStatusTranslator.APPROVED = "Ya la aprobé";
+    SubjectStatusTranslator.BAD_SCHEDULE = "No puedo cursar en ese horario";
+    SubjectStatusTranslator.subjectStatusMessage = {
+        not_yet: SubjectStatusTranslator.NOT_YET,
+        approved: SubjectStatusTranslator.APPROVED,
+        bad_schedule: SubjectStatusTranslator.BAD_SCHEDULE,
     };
     return SubjectStatusTranslator;
 }());

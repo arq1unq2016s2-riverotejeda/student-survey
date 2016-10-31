@@ -39,14 +39,13 @@ export class HomeComponent implements OnInit{
                 res => {
                     res.map(survey => {
                         for (let option of survey.options){
-                            var option_translated = SubjectStatusTranslator.subject_status[option];
+                            var option_translated = SubjectStatusTranslator.subjectStatusMessage[option];
                             survey.general_options.push(option_translated);
                         }
                     })
                     this.mySubjects = res;
-                }, // put the data returned from the server in our variable
-                error => console.log("Error HTTP GET Service"), // in case of failure show this message
-                () => {console.log("Job Done Get !")}//run this code in all cases
+                },
+                error => console.log("Error HTTP GET Service") // in case of failure show this message
             );
 
     }
@@ -56,9 +55,19 @@ export class HomeComponent implements OnInit{
         var selectedSubject = new SelectedSubject(subjectName, option);
         //TODO: check if already exist
         this.model.selected_subjects.push(selectedSubject);
-        console.log(this.model);
     }
 
-    onSubmit() { console.log(this.model) }
+    onSubmit() {
+        this.model.selected_subjects.map(selected => {
+            var status = SubjectStatusTranslator.getSubjectStatusCodeByMessage(selected.status);
+            if(status){
+                selected.status = status;
+            }
+
+        });
+
+        console.log(this.model);
+
+    }
 }
 
